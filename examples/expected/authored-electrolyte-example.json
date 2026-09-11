@@ -1,0 +1,53 @@
+{
+  "schema_version": "0.1.0",
+  "source_artifact": {
+    "identifier": "urn:sha256:49b3ba964bd0e23ceaca2f5c44adfa162b039017d731b7027a72db333ad0dcd2",
+    "title": "Authored electrolyte evidence fixture",
+    "content_sha256": "49b3ba964bd0e23ceaca2f5c44adfa162b039017d731b7027a72db333ad0dcd2",
+    "access_basis": "authored_fixture",
+    "license": "CC0-1.0"
+  },
+  "source_anchor": {
+    "type": "html_element",
+    "element_id": "conductivity-claim",
+    "evidence_text": "At 25 °C, Li6PS5Cl showed an ionic conductivity of 1.2 mS cm−1 measured by electrochemical impedance spectroscopy.",
+    "character_start": 51,
+    "character_end": 62
+  },
+  "claim": {
+    "subject": "Li6PS5Cl",
+    "property": "ionic_conductivity",
+    "reported_value": "1.2",
+    "reported_unit": "mS cm−1",
+    "normalized_value": "0.0012",
+    "normalized_unit": "S/cm",
+    "claim_type": "measured"
+  },
+  "qualifiers": {
+    "temperature_value": "25",
+    "temperature_unit": "°C",
+    "measurement_method": "electrochemical impedance spectroscopy"
+  },
+  "uncertainty": {
+    "reported": null,
+    "extraction_confidence": null
+  },
+  "extraction_run": {
+    "extractor": "proofgraph.rules.ionic_conductivity.v1",
+    "proofgraph_version": "0.0.1",
+    "python_version": "3.12.14",
+    "generated_at": "1970-01-01T00:00:00+00:00",
+    "model": null,
+    "prompt_hash": null
+  },
+  "validation": {
+    "status": "valid",
+    "errors": []
+  },
+  "review": {
+    "status": "unreviewed",
+    "reviewer": null,
+    "reviewed_at": null
+  },
+  "relations": []
+}

@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "proofgraph-science"
+version = "0.0.1"
+description = "Pre-alpha claim-evidence provenance prototype for scientific documents"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Ilia Tiushniakov" }]
+dependencies = []
+
+[project.scripts]
+proofgraph = "proofgraph.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
