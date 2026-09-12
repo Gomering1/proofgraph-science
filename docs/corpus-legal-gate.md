@@ -78,3 +78,10 @@ Before ingesting any asset, record:
 
 If any field is uncertain, keep the asset link-only and exclude it from the
 benchmark until the uncertainty is resolved.
+
+The prototype's local `extract-pmc` command does not alter or satisfy this
+checklist. It can compare a user-supplied OAI/JATS file with existing manifest
+identity and license metadata and produce an explicitly unreviewed derived
+record, but that deterministic processing is neither legal approval nor
+scientific review. The command performs no automatic download and does not
+persist the supplied source XML.

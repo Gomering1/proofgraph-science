@@ -1,0 +1,197 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/Gomering1/proofgraph-science/main/schemas/claim-evidence.v0.2.schema.json",
+  "title": "ProofGraph Science PMC JATS claim evidence record",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "source_artifact",
+    "source_anchor",
+    "claim",
+    "qualifiers",
+    "uncertainty",
+    "extraction_run",
+    "validation",
+    "review"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.2.0" },
+    "source_artifact": {
+      "type": "object",
+      "required": [
+        "manifest_entry_id",
+        "identifier",
+        "content_sha256",
+        "content_hash_method",
+        "access_basis",
+        "doi",
+        "pmcid",
+        "pmcid_version",
+        "license_spdx",
+        "license_url",
+        "retrieval",
+        "attribution"
+      ],
+      "properties": {
+        "manifest_entry_id": { "type": "string", "minLength": 1 },
+        "identifier": {
+          "type": "string",
+          "pattern": "^https://doi\\.org/10\\..+"
+        },
+        "title": { "type": "string", "minLength": 1 },
+        "content_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "content_hash_method": { "const": "sha256-xml-c14n2-article" },
+        "access_basis": { "const": "open_access" },
+        "doi": { "type": "string", "pattern": "^10\\..+/.+$" },
+        "pmcid": { "type": "string", "pattern": "^PMC[0-9]+$" },
+        "pmcid_version": { "type": "string", "pattern": "^PMC[0-9]+\\.[0-9]+$" },
+        "pmid": { "type": ["string", "null"], "pattern": "^[0-9]+$" },
+        "license_spdx": { "const": "CC-BY-4.0" },
+        "license_url": {
+          "const": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "retrieval": {
+          "type": "object",
+          "required": ["provider", "url", "retrieved_at"],
+          "properties": {
+            "provider": { "const": "NCBI PMC OAI-PMH" },
+            "url": { "type": "string", "pattern": "^https://" },
+            "retrieved_at": { "type": "string", "format": "date-time" }
+          },
+          "additionalProperties": false
+        },
+        "attribution": {
+          "type": "object",
+          "required": [
+            "authors",
+            "title",
+            "journal",
+            "doi_url",
+            "license_url",
+            "change_notice"
+          ],
+          "properties": {
+            "authors": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "type": "string", "minLength": 1 }
+            },
+            "title": { "type": "string", "minLength": 1 },
+            "journal": { "type": "string", "minLength": 1 },
+            "doi_url": {
+              "type": "string",
+              "pattern": "^https://doi\\.org/10\\..+"
+            },
+            "license_url": {
+              "const": "https://creativecommons.org/licenses/by/4.0/"
+            },
+            "change_notice": {
+              "const": "JATS inline markup flattened and whitespace normalized; claim record derived by ProofGraph"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "source_anchor": {
+      "type": "object",
+      "required": [
+        "type",
+        "element_id",
+        "xpath",
+        "element_text_sha256",
+        "character_start",
+        "character_end",
+        "evidence_text",
+        "evidence_text_sha256"
+      ],
+      "properties": {
+        "type": { "const": "jats_element_text_span" },
+        "element_id": { "type": "string", "minLength": 1 },
+        "xpath": { "type": "string", "minLength": 1 },
+        "element_text_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "character_start": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Zero-based Python Unicode-code-point offset into normalized JATS element text; inclusive start of a half-open span."
+        },
+        "character_end": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Zero-based Python Unicode-code-point offset into normalized JATS element text; exclusive end of a half-open span."
+        },
+        "evidence_text": { "type": "string", "minLength": 1 },
+        "evidence_text_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "claim": {
+      "type": "object",
+      "required": [
+        "subject",
+        "property",
+        "reported_value",
+        "reported_unit",
+        "normalized_value",
+        "normalized_unit",
+        "claim_type"
+      ],
+      "properties": {
+        "subject": { "type": "string", "minLength": 1 },
+        "subject_alias": { "type": "string", "minLength": 1 },
+        "property": { "const": "ionic_conductivity" },
+        "reported_value": { "type": "string", "minLength": 1 },
+        "reported_unit": { "type": "string", "minLength": 1 },
+        "normalized_value": { "type": "string", "minLength": 1 },
+        "normalized_unit": { "const": "S/cm" },
+        "claim_type": { "enum": ["measured", "predicted"] }
+      },
+      "additionalProperties": false
+    },
+    "qualifiers": {
+      "type": "object",
+      "required": ["temperature_value", "temperature_unit", "measurement_method"],
+      "properties": {
+        "temperature_value": { "type": "string", "minLength": 1 },
+        "temperature_unit": { "const": "°C" },
+        "measurement_method": { "type": ["string", "null"] },
+        "sample_condition": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "uncertainty": { "type": "object" },
+    "extraction_run": {
+      "type": "object",
+      "required": ["extractor", "proofgraph_version", "python_version", "generated_at"],
+      "properties": {
+        "extractor": { "type": "string", "minLength": 1 },
+        "proofgraph_version": { "type": "string", "minLength": 1 },
+        "python_version": { "type": "string", "minLength": 1 },
+        "generated_at": { "type": "string", "format": "date-time" },
+        "model": { "type": ["string", "null"] },
+        "prompt_hash": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "validation": { "type": "object" },
+    "review": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": { "enum": ["unreviewed", "human_reviewed", "rejected"] },
+        "reviewer": { "type": ["string", "null"] },
+        "reviewed_at": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "relations": { "type": "array" }
+  },
+  "additionalProperties": false
+}

@@ -4,7 +4,7 @@
 
 **Status: runnable pre-alpha vertical slice.**
 
-This directory is a local vertical slice for the proposed open scientific evidence layer. It demonstrates one honest path from an authored HTML fixture to a structured claim-evidence record with an exact source element, content hash, normalized value and unit, experimental conditions, extraction provenance, and deterministic validation.
+This directory is a local vertical slice for the proposed open scientific evidence layer. It demonstrates one honest path from an authored HTML fixture to a structured claim-evidence record with an exact source element, content hash, normalized value and unit, experimental conditions, extraction provenance, and deterministic validation. It also contains a narrow, offline PMC OAI/JATS parser and rule for the `PMC8292426` `Par7` claim shape. No real article XML is bundled.
 
 It is not a scientific truth engine, a battery-discovery model, or a production parser. The first extractor is deliberately small and rule-based. The grant-funded work would replace and compare extractors while keeping the evidence schema, validation, and review boundaries explicit.
 
@@ -51,6 +51,32 @@ The demo produces an explicitly unreviewed record shaped like this:
 }
 ```
 
+## Process a local PMC OAI/JATS response
+
+`extract-pmc` processes one user-supplied local OAI-PMH `GetRecord` XML file.
+It performs no network request, writes no cache or source copy, and reads the
+corpus manifest only to assert the expected PMCID, DOI, and CC BY 4.0 license:
+
+```bash
+proofgraph extract-pmc /path/to/PMC8292426-oai.xml \
+  --manifest benchmark/corpus-manifest.v0.1.json \
+  --pmcid PMC8292426 \
+  --element-id Par7 \
+  --out result.json
+proofgraph validate result.json
+```
+
+The command fails closed on OAI, JATS version, identity, open-access, embargo,
+license, anchor, or extraction mismatches. A successful result is schema-valid
+and `unreviewed`; it is not a claim that the scientific fact or legal review has
+been verified. Supplying a local source remains the operator's responsibility,
+and the manifest's documented legal gate remains unchanged.
+
+A local smoke test against the official PMC OAI/JATS response for `PMC8292426`
+has exercised this path without adding the source article to the repository.
+See [`docs/real-paper-smoke-test.md`](docs/real-paper-smoke-test.md) for the
+derived fields, hashes, and limitations.
+
 ## Run tests
 
 ```bash
@@ -62,6 +88,14 @@ python3 -m unittest discover -s tests -v
 - parses authored HTML into elements with stable `id` anchors;
 - recognizes one narrow ionic-conductivity statement pattern;
 - normalizes `mS cm−1` to `S/cm`;
+- parses a local PMC OAI-PMH response containing namespaced JATS 1.4, checks the
+  asserted PMCID/DOI/CC BY 4.0 metadata, and hashes the canonicalized `article`
+  subtree rather than the changing OAI wrapper;
+- extracts the narrow `Li2ZrCl6 (LZC)` / `as-milled` / EIS / `25 °C` claim
+  shape from a native-ID body paragraph while excluding figure, table,
+  supplementary, reference, and boxed-text subtrees;
+- emits a separate v0.2 record with attribution, retrieval provenance, exact
+  normalized-text offsets and hashes, while retaining v0.1 for the HTML demo;
 - records source SHA-256, extractor version, Python version, timestamp, and review state;
 - executes the published Draft 2020-12 JSON Schema before checking required source and provenance fields, supported property/unit values, temperature, and whether the extracted subject and reported value occur in the anchored evidence;
 - declares a link-only five-paper pilot corpus with canonical identifiers,
@@ -75,7 +109,8 @@ python3 -m unittest discover -s tests -v
 - domain reviewer workflow and immutable edits;
 - conflict-candidate retrieval;
 - JSON-LD, PROV-O, and RO-Crate mappings;
-- ingestion, annotation, or evaluation of the five real papers.
+- bundled source copies, automatic download, broad ingestion, annotation, or
+  scientific evaluation of the five real papers.
 
 The funding applications must not describe any item in this list as already working.
 

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Project-authored synthetic fixture; released under CC0-1.0. Embedded
+     identifiers and license metadata exist only to exercise parser gates. -->
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/">
+  <responseDate>2026-09-11T18:30:00Z</responseDate>
+  <request verb="GetRecord" metadataPrefix="pmc" identifier="oai:pubmedcentral.nih.gov:999999999">https://pmc.ncbi.nlm.nih.gov/api/oai/v1/mh/</request>
+  <GetRecord>
+    <record>
+      <header>
+        <identifier>oai:pubmedcentral.nih.gov:999999999</identifier>
+        <datestamp>2026-09-11</datestamp>
+        <setSpec>pmc-open</setSpec>
+      </header>
+      <metadata>
+        <article xmlns="https://jats.nlm.nih.gov/ns/archiving/1.4/"
+                 xmlns:ali="http://www.niso.org/schemas/ali/1.0/"
+                 dtd-version="1.4"
+                 article-type="research-article">
+          <front>
+            <journal-meta>
+              <journal-title-group>
+                <journal-title>Journal of Authored Test Fixtures</journal-title>
+              </journal-title-group>
+            </journal-meta>
+            <article-meta>
+              <article-id pub-id-type="pmcid">PMC999999999</article-id>
+              <article-id pub-id-type="pmcid-ver">PMC999999999.1</article-id>
+              <article-id pub-id-type="pmid">999999999</article-id>
+              <article-id pub-id-type="doi">10.0000/proofgraph.synthetic</article-id>
+              <title-group>
+                <article-title>Synthetic chloride electrolyte extraction fixture</article-title>
+              </title-group>
+              <contrib-group>
+                <contrib contrib-type="author">
+                  <name><surname>Fixture</surname><given-names>Ada</given-names></name>
+                </contrib>
+                <contrib contrib-type="author">
+                  <name><surname>Example</surname><given-names>Lin</given-names></name>
+                </contrib>
+              </contrib-group>
+              <permissions>
+                <license>
+                  <ali:license_ref>https://creativecommons.org/licenses/by/4.0/</ali:license_ref>
+                </license>
+              </permissions>
+              <custom-meta-group>
+                <custom-meta>
+                  <meta-name>pmc-prop-open-access</meta-name>
+                  <meta-value>yes</meta-value>
+                </custom-meta>
+                <custom-meta>
+                  <meta-name>pmc-status-embargo</meta-name>
+                  <meta-value>no</meta-value>
+                </custom-meta>
+              </custom-meta-group>
+            </article-meta>
+          </front>
+          <body>
+            <sec id="Sec2">
+              <title>Synthetic results</title>
+              <p id="Par7">Li<sub>2</sub>ZrCl<sub>6</sub> (LZC) was examined in the as-milled condition. Electrochemical impedance spectroscopy (EIS) found an ionic conductivity of 8.08&#160;×&#160;10<sup>−4</sup> S cm<sup>−1</sup> at 25 °C. A later electronic conductivity was 2.10 × 10<sup>−8</sup> S cm<sup>−1</sup>.<fig id="Fig1"><caption><p>Excluded caption: ionic conductivity 9.99 S cm<sup>−1</sup> at 900 °C.</p></caption></fig> Figure-tail prose remains.</p>
+              <p>This paragraph deliberately has no native id and must be skipped.</p>
+              <table-wrap id="Table1">
+                <caption><p id="TableCaptionP">Excluded table paragraph.</p></caption>
+              </table-wrap>
+              <boxed-text id="Box1"><p id="BoxP">Excluded boxed paragraph.</p></boxed-text>
+            </sec>
+          </body>
+        </article>
+      </metadata>
+    </record>
+  </GetRecord>
+</OAI-PMH>
