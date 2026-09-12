@@ -19,6 +19,8 @@ record, and performs no download or source caching. Successful parsing and
 schema validation do not constitute legal or scientific review.
 
 The five-paper pilot manifest stores bibliographic metadata, remote
-links, rights evidence, and conservative reuse rules only. It does not bundle
-or authorize automatic downloading of article text or supplementary assets;
-see [`docs/corpus-legal-gate.md`](docs/corpus-legal-gate.md).
+links, rights evidence, conservative reuse rules, and bounded local-smoke-test
+locators only. The public smoke-test report contains derived fields, hashes,
+anchors, and an abstention reason, but no evidence passages. The manifest does
+not bundle or authorize automatic downloading of article text or supplementary
+assets; see [`docs/corpus-legal-gate.md`](docs/corpus-legal-gate.md).

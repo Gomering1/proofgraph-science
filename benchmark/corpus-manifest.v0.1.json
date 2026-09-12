@@ -70,6 +70,14 @@
       ],
       "redistribution_policy": "Initial pilot may publish attribution, source links, source hashes, source anchors, and original ProofGraph annotations or derived claim records after review. Do not commit article full text or supplementary files. Inspect asset-level credit lines before quoting or redistributing figures, tables, or supplement content.",
       "third_party_materials_caveat": "The article license does not automatically cover material identified by a separate credit line. Exclude or separately clear any such material.",
+      "local_smoke_test": {
+        "status": "candidate_unreviewed",
+        "profile": "nasicon_sc04_v1",
+        "locator": {
+          "type": "native_id",
+          "element_id": "Par13"
+        }
+      },
       "dataset_caveat": {
         "applies_to": "The supplementary compilation of 475 reported NASICON compositions with experimental conductivity values",
         "license_scope": "CC BY 4.0 supports reuse of the article authors' original compilation and supplementary content subject to attribution and any asset-specific notices; it does not establish reuse rights for the full text, figures, or tables of the underlying cited papers.",
@@ -121,7 +129,15 @@
         }
       ],
       "redistribution_policy": "Initial pilot may publish attribution, source links, source hashes, source anchors, and original ProofGraph annotations or derived claim records after review. Do not commit article full text. Inspect asset-level credit lines before quoting or redistributing figures, tables, or supplement content.",
-      "third_party_materials_caveat": "The article license does not automatically cover material identified by a separate credit line. Exclude or separately clear any such material."
+      "third_party_materials_caveat": "The article license does not automatically cover material identified by a separate credit line. Exclude or separately clear any such material.",
+      "local_smoke_test": {
+        "status": "candidate_unreviewed",
+        "profile": "lzc_as_milled_v1",
+        "locator": {
+          "type": "native_id",
+          "element_id": "Par7"
+        }
+      }
     },
     {
       "id": "sulfide-surface-engineering-2024",
@@ -175,7 +191,16 @@
         }
       ],
       "redistribution_policy": "Initial pilot may publish attribution, source links, source hashes, source anchors, and original ProofGraph annotations or derived claim records after review. Do not commit article full text or supplementary files. Inspect asset-level credit lines before quoting or redistributing figures, tables, or supplement content.",
-      "third_party_materials_caveat": "The article license does not automatically cover material identified by a separate credit line. Exclude or separately clear any such material."
+      "third_party_materials_caveat": "The article license does not automatically cover material identified by a separate credit line. Exclude or separately clear any such material.",
+      "local_smoke_test": {
+        "status": "documented_abstention",
+        "profile": "air_exposure_abstain_v1",
+        "locator": {
+          "type": "native_id",
+          "element_id": "Par18"
+        },
+        "reason_code": "cross_paragraph_qualifiers_not_supported"
+      }
     },
     {
       "id": "composite-wide-frequency-conductivity-2022",
@@ -218,7 +243,16 @@
         }
       ],
       "redistribution_policy": "Initial pilot may publish attribution, source links, source hashes, source anchors, and original ProofGraph annotations or derived claim records after review. Do not commit article full text. Inspect asset-level credit lines before quoting or redistributing figures, tables, or supplement content.",
-      "third_party_materials_caveat": "The article license does not automatically cover material identified by a separate credit line. Exclude or separately clear any such material."
+      "third_party_materials_caveat": "The article license does not automatically cover material identified by a separate credit line. Exclude or separately clear any such material.",
+      "local_smoke_test": {
+        "status": "candidate_unreviewed",
+        "profile": "composite_tio2_v1",
+        "locator": {
+          "type": "section_child",
+          "section_id": "advs3904-sec-0030",
+          "paragraph_position": 1
+        }
+      }
     },
     {
       "id": "lithium-halide-design-2024",
@@ -268,7 +302,15 @@
         }
       ],
       "redistribution_policy": "Initial pilot may publish attribution, source links, source hashes, source anchors, and original ProofGraph annotations or derived claim records after review. Do not commit article full text or supplementary files. Inspect asset-level credit lines before quoting or redistributing figures, tables, or supplement content.",
-      "third_party_materials_caveat": "The article license does not automatically cover material identified by a separate credit line. Exclude or separately clear any such material."
+      "third_party_materials_caveat": "The article license does not automatically cover material identified by a separate credit line. Exclude or separately clear any such material.",
+      "local_smoke_test": {
+        "status": "candidate_unreviewed",
+        "profile": "halide_he_se_v1",
+        "locator": {
+          "type": "native_id",
+          "element_id": "Par12"
+        }
+      }
     }
   ]
 }

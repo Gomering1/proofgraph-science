@@ -4,7 +4,7 @@
 
 **Status: runnable pre-alpha vertical slice.**
 
-This directory is a local vertical slice for the proposed open scientific evidence layer. It demonstrates one honest path from an authored HTML fixture to a structured claim-evidence record with an exact source element, content hash, normalized value and unit, experimental conditions, extraction provenance, and deterministic validation. It also contains a narrow, offline PMC OAI/JATS parser and rule for the `PMC8292426` `Par7` claim shape. No real article XML is bundled.
+This directory is a local vertical slice for the proposed open scientific evidence layer. It demonstrates one honest path from an authored HTML fixture to a structured claim-evidence record with an exact source element, content hash, normalized value and unit, experimental conditions, extraction provenance, and deterministic validation. It also contains a narrow, offline PMC OAI/JATS parser with manifest-selected rules for a five-paper local smoke test. Four articles emit unreviewed records and one deliberately abstains because its required qualifiers cross paragraph boundaries. No real article XML is bundled.
 
 It is not a scientific truth engine, a battery-discovery model, or a production parser. The first extractor is deliberately small and rule-based. The grant-funded work would replace and compare extractors while keeping the evidence schema, validation, and review boundaries explicit.
 
@@ -61,21 +61,29 @@ corpus manifest only to assert the expected PMCID, DOI, and CC BY 4.0 license:
 proofgraph extract-pmc /path/to/PMC8292426-oai.xml \
   --manifest benchmark/corpus-manifest.v0.1.json \
   --pmcid PMC8292426 \
-  --element-id Par7 \
   --out result.json
 proofgraph validate result.json
 ```
 
-The command fails closed on OAI, JATS version, identity, open-access, embargo,
-license, anchor, or extraction mismatches. A successful result is schema-valid
-and `unreviewed`; it is not a claim that the scientific fact or legal review has
-been verified. Supplying a local source remains the operator's responsibility,
-and the manifest's documented legal gate remains unchanged.
+The manifest declares the exact local-smoke-test profile and locator.
+`--element-id` remains available as an optional assertion and is required for a
+manifest entry without such a locator. The command fails closed on OAI, JATS
+version, identity, open-access, embargo, license, anchor, or extraction
+mismatches. Exit code `3` is a documented extraction abstention and writes no
+record when the requested output path is absent. Both extraction commands
+reject a pre-existing `--out` before extraction with exit code `2` and leave it
+unchanged; choose a new output path for every attempt. A successful result is
+schema-valid and `unreviewed`; it is not a claim that the scientific fact or
+legal review has been verified. Supplying a local source remains the operator's
+responsibility, and the manifest's documented legal gate remains unchanged.
 
-A local smoke test against the official PMC OAI/JATS response for `PMC8292426`
-has exercised this path without adding the source article to the repository.
+A local smoke test against all five official PMC OAI/JATS responses has
+exercised this path without adding source articles or generated records to the
+repository.
 See [`docs/real-paper-smoke-test.md`](docs/real-paper-smoke-test.md) for the
-derived fields, hashes, and limitations.
+derived fields, hashes, and limitations, and
+[`benchmark/five-paper-smoke-report.v0.1.json`](benchmark/five-paper-smoke-report.v0.1.json)
+for the same outcomes in a source-text-free machine-readable form.
 
 ## Run tests
 
@@ -91,11 +99,15 @@ python3 -m unittest discover -s tests -v
 - parses a local PMC OAI-PMH response containing namespaced JATS 1.4, checks the
   asserted PMCID/DOI/CC BY 4.0 metadata, and hashes the canonicalized `article`
   subtree rather than the changing OAI wrapper;
-- extracts the narrow `Li2ZrCl6 (LZC)` / `as-milled` / EIS / `25 °C` claim
-  shape from a native-ID body paragraph while excluding figure, table,
-  supplementary, reference, and boxed-text subtrees;
-- emits a separate v0.2 record with attribution, retrieval provenance, exact
-  normalized-text offsets and hashes, while retaining v0.1 for the HTML demo;
+- runs four narrow, manifest-selected conductivity rules across the five-paper
+  corpus and returns a documented abstention for the cross-paragraph case;
+- anchors source text either to a native-ID body paragraph or, when publisher
+  JATS omits paragraph IDs, to an exact paragraph path under a native-ID
+  section, while excluding figure, table, supplementary, reference, and
+  boxed-text subtrees;
+- emits v0.2 PMC records with attribution, retrieval provenance, exact
+  normalized-text offsets and hashes; uses the locator-only v0.3 extension for
+  an ID-less paragraph while leaving v0.1 and v0.2 unchanged;
 - records source SHA-256, extractor version, Python version, timestamp, and review state;
 - executes the published Draft 2020-12 JSON Schema before checking required source and provenance fields, supported property/unit values, temperature, and whether the extracted subject and reported value occur in the anchored evidence;
 - declares a link-only five-paper pilot corpus with canonical identifiers,
@@ -109,8 +121,8 @@ python3 -m unittest discover -s tests -v
 - domain reviewer workflow and immutable edits;
 - conflict-candidate retrieval;
 - JSON-LD, PROV-O, and RO-Crate mappings;
-- bundled source copies, automatic download, broad ingestion, annotation, or
-  scientific evaluation of the five real papers.
+- bundled source copies, automatic download, broad ingestion, human annotation,
+  or scientific evaluation of the five real papers.
 
 The funding applications must not describe any item in this list as already working.
 

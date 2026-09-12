@@ -18,6 +18,7 @@ SCHEMA_FILENAME = "claim-evidence.v0.1.schema.json"
 SCHEMA_FILENAMES = {
     "0.1.0": SCHEMA_FILENAME,
     "0.2.0": "claim-evidence.v0.2.schema.json",
+    "0.3.0": "claim-evidence.v0.3.schema.json",
 }
 
 
@@ -25,7 +26,7 @@ class SchemaRuntimeError(RuntimeError):
     """Raised when the bundled schema cannot be loaded or is itself invalid."""
 
 
-@lru_cache(maxsize=2)
+@lru_cache(maxsize=3)
 def _schema_document(schema_version: str = DEFAULT_SCHEMA_VERSION) -> dict[str, Any]:
     try:
         filename = SCHEMA_FILENAMES[schema_version]
@@ -59,7 +60,7 @@ def load_claim_evidence_schema(
     return copy.deepcopy(_schema_document(schema_version))
 
 
-@lru_cache(maxsize=2)
+@lru_cache(maxsize=3)
 def _schema_validator(schema_version: str) -> Draft202012Validator:
     return Draft202012Validator(_schema_document(schema_version))
 
@@ -180,11 +181,15 @@ def _evidence_contains(evidence: str, value: Any, *, casefold: bool = False) -> 
     return value in evidence
 
 
-def _semantic_errors_v02(record: Any) -> list[str]:
+def _semantic_errors_v02(
+    record: Any,
+    *,
+    expected_schema_version: str = "0.2.0",
+) -> list[str]:
     errors: list[str] = []
     record_fields = _mapping(record)
-    if record_fields.get("schema_version") != "0.2.0":
-        errors.append("schema_version must be 0.2.0")
+    if record_fields.get("schema_version") != expected_schema_version:
+        errors.append(f"schema_version must be {expected_schema_version}")
 
     source = _mapping(record_fields.get("source_artifact"))
     doi = source.get("doi")
@@ -225,7 +230,10 @@ def _semantic_errors_v02(record: Any) -> list[str]:
     evidence = anchor.get("evidence_text")
     evidence_text = evidence if isinstance(evidence, str) else ""
     if anchor.get("type") != "jats_element_text_span":
-        errors.append("source_anchor.type must be jats_element_text_span in schema v0.2")
+        errors.append(
+            "source_anchor.type must be jats_element_text_span in schema "
+            f"{expected_schema_version}"
+        )
     expected_evidence_hash = (
         sha256(evidence_text.encode("utf-8")).hexdigest() if evidence_text else None
     )
@@ -272,7 +280,10 @@ def _semantic_errors_v02(record: Any) -> list[str]:
         errors.append("qualifiers.temperature_unit is not supported by evidence_text")
     method = qualifiers.get("measurement_method")
     if not method:
-        errors.append("qualifiers.measurement_method is required for schema v0.2")
+        errors.append(
+            "qualifiers.measurement_method is required for schema "
+            f"{expected_schema_version}"
+        )
     elif not _evidence_contains(evidence_text, method, casefold=True):
         errors.append("qualifiers.measurement_method is not supported by evidence_text")
     sample_condition = qualifiers.get("sample_condition")
@@ -288,6 +299,40 @@ def _semantic_errors_v02(record: Any) -> list[str]:
     review = _mapping(record_fields.get("review"))
     if review.get("status") not in {"unreviewed", "human_reviewed", "rejected"}:
         errors.append("review.status is invalid")
+    return errors
+
+
+def _semantic_errors_v03(record: Any) -> list[str]:
+    errors = _semantic_errors_v02(record, expected_schema_version="0.3.0")
+    anchor = _mapping(_mapping(record).get("source_anchor"))
+    element_id = anchor.get("element_id")
+    ancestor_id = anchor.get("ancestor_element_id")
+    locator_scope = anchor.get("locator_scope")
+    xpath = anchor.get("xpath")
+
+    if locator_scope == "native_element_id":
+        if not isinstance(element_id, str) or not element_id:
+            errors.append("source_anchor.element_id is required for native_element_id")
+        if ancestor_id is not None:
+            errors.append(
+                "source_anchor.ancestor_element_id must be null for native_element_id"
+            )
+    elif locator_scope == "native_ancestor_plus_xpath":
+        if element_id is not None:
+            errors.append(
+                "source_anchor.element_id must be null for native_ancestor_plus_xpath"
+            )
+        if not isinstance(ancestor_id, str) or not ancestor_id:
+            errors.append(
+                "source_anchor.ancestor_element_id is required for "
+                "native_ancestor_plus_xpath"
+            )
+        elif isinstance(xpath, str) and not (
+            f"[@id='{ancestor_id}']" in xpath or f'[@id="{ancestor_id}"]' in xpath
+        ):
+            errors.append("source_anchor.xpath does not contain ancestor_element_id")
+    else:
+        errors.append("source_anchor.locator_scope is invalid")
     return errors
 
 
@@ -308,8 +353,10 @@ def validate_record(
     errors = _schema_errors(record, selected)
     if selected == "0.1.0":
         errors.extend(_semantic_errors_v01(record))
-    else:
+    elif selected == "0.2.0":
         errors.extend(_semantic_errors_v02(record))
+    else:
+        errors.extend(_semantic_errors_v03(record))
     return errors
 
 

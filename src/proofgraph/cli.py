@@ -6,13 +6,20 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from .extract import extract_pmc_record, extract_record
+from .extract import PmcExtractionAbstention, extract_pmc_record, extract_record
 from .pmc import MAX_LOCAL_XML_BYTES, normalize_pmcid, parse_pmc_oai_jats
 from .validate import SchemaRuntimeError, set_validation_result, validate_record
 
 
-def _write_json(path: Path, value: dict[str, Any]) -> None:
-    path.write_text(json.dumps(value, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+def _write_json(
+    path: Path,
+    value: dict[str, Any],
+    *,
+    overwrite: bool = False,
+) -> None:
+    mode = "w" if overwrite else "x"
+    with path.open(mode, encoding="utf-8") as destination:
+        destination.write(json.dumps(value, indent=2, ensure_ascii=False) + "\n")
 
 
 def _ensure_distinct_output(output: Path, *protected: Path) -> None:
@@ -21,11 +28,17 @@ def _ensure_distinct_output(output: Path, *protected: Path) -> None:
         raise ValueError("output path must not overwrite an input or manifest file")
 
 
+def _ensure_new_output(output: Path) -> None:
+    if output.exists():
+        raise ValueError("output path already exists; refusing to overwrite it")
+
+
 def _extract(args: argparse.Namespace) -> int:
     try:
         input_path = Path(args.input)
         output_path = Path(args.out)
         _ensure_distinct_output(output_path, input_path)
+        _ensure_new_output(output_path)
         record = extract_record(input_path)
         errors = set_validation_result(record)
         _write_json(output_path, record)
@@ -58,7 +71,7 @@ def _validate(args: argparse.Namespace) -> int:
         if not isinstance(record, dict):
             print("validate failed: --write requires a top-level JSON object", file=sys.stderr)
             return 2
-        _write_json(path, record)
+        _write_json(path, record, overwrite=True)
     if errors:
         print("invalid")
         for error in errors:
@@ -94,6 +107,7 @@ def _extract_pmc(args: argparse.Namespace) -> int:
         manifest_path = Path(args.manifest)
         output_path = Path(args.out)
         _ensure_distinct_output(output_path, input_path, manifest_path)
+        _ensure_new_output(output_path)
         pmcid = normalize_pmcid(args.pmcid)
         entry = _manifest_entry(manifest_path, pmcid)
         license_data = entry.get("license")
@@ -123,6 +137,9 @@ def _extract_pmc(args: argparse.Namespace) -> int:
         )
         errors = set_validation_result(record)
         _write_json(output_path, record)
+    except PmcExtractionAbstention as exc:
+        print(f"extract-pmc abstained: {exc}", file=sys.stderr)
+        return 3
     except (
         OSError,
         UnicodeError,
@@ -167,7 +184,13 @@ def build_parser() -> argparse.ArgumentParser:
         required=True,
         help="read-only corpus manifest providing the asserted DOI and license",
     )
-    extract_pmc.add_argument("--element-id", required=True)
+    extract_pmc.add_argument(
+        "--element-id",
+        help=(
+            "optional assertion for the native paragraph ID or stable section ID; "
+            "required only when the manifest has no local_smoke_test locator"
+        ),
+    )
     extract_pmc.add_argument("--out", required=True)
     extract_pmc.set_defaults(func=_extract_pmc)
 

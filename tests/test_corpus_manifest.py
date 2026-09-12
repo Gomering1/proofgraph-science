@@ -67,6 +67,31 @@ class CorpusManifestTests(unittest.TestCase):
         self.assertIn("not uniform ground truth", caveat["scientific_comparability_warning"])
         self.assertIn("rights and evidence check", caveat["public_release_gate"])
 
+    def test_every_paper_declares_a_bounded_local_smoke_outcome(self) -> None:
+        outcomes = {paper["local_smoke_test"]["status"] for paper in self.papers}
+        self.assertEqual(outcomes, {"candidate_unreviewed", "documented_abstention"})
+        self.assertEqual(
+            sum(
+                paper["local_smoke_test"]["status"] == "candidate_unreviewed"
+                for paper in self.papers
+            ),
+            4,
+        )
+        abstention = next(
+            paper
+            for paper in self.papers
+            if paper["local_smoke_test"]["status"] == "documented_abstention"
+        )
+        self.assertEqual(abstention["pmcid"], "PMC11696013")
+        self.assertEqual(
+            abstention["local_smoke_test"]["reason_code"],
+            "cross_paragraph_qualifiers_not_supported",
+        )
+        for paper in self.papers:
+            locator = paper["local_smoke_test"]["locator"]
+            self.assertIn(locator["type"], {"native_id", "section_child"})
+            self.assertNotIn("evidence_text", paper["local_smoke_test"])
+
 
 if __name__ == "__main__":
     unittest.main()

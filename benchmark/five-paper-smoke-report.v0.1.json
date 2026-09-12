@@ -1,0 +1,138 @@
+{
+  "report_version": "0.1.0",
+  "run_date_pdt": "2026-09-11",
+  "source_provider": "NCBI PMC OAI-PMH",
+  "manifest": "benchmark/corpus-manifest.v0.1.json",
+  "manifest_version": "0.1.0",
+  "source_files_committed": false,
+  "generated_records_committed": false,
+  "scientifically_reviewed": false,
+  "summary": {
+    "papers_checked": 5,
+    "unreviewed_records_emitted": 4,
+    "documented_abstentions": 1
+  },
+  "outcomes": [
+    {
+      "pmcid": "PMC10457403",
+      "pmcid_version": "PMC10457403.1",
+      "doi": "10.1038/s41467-023-40669-0",
+      "outcome": "record_emitted_unreviewed",
+      "schema_version": "0.2.0",
+      "article_sha256": "337d2f12aca563a7be842f4bb3ed62305a530f3a716e0d622a40e1a23f4501e6",
+      "anchor": {
+        "element_id": "Par13",
+        "xpath": "article/body/sec[@id='Sec2']/sec[@id='Sec5']/p[@id='Par13']",
+        "element_text_sha256": "2ce2bf1214bd132588cb3e45a04c0318ee42c296971c066164700a8f9fdb52b1",
+        "character_start": 1013,
+        "character_end": 1402,
+        "evidence_text_sha256": "cbbb7b689cbd1c26d91dc275a9b8d8ed245978c63c4b8f3d4fc84e7d58e52a75"
+      },
+      "derived_claim": {
+        "subject": "Na3.4Hf0.6Sc0.4ZrSi2PO12",
+        "normalized_value": "0.0012",
+        "normalized_unit": "S/cm",
+        "temperature_value": "25",
+        "temperature_unit": "°C",
+        "measurement_method": "EIS",
+        "observed_not_encoded": [
+          "approximate-temperature marker",
+          "Na metal electrode configuration"
+        ]
+      }
+    },
+    {
+      "pmcid": "PMC8292426",
+      "pmcid_version": "PMC8292426.1",
+      "doi": "10.1038/s41467-021-24697-2",
+      "outcome": "record_emitted_unreviewed",
+      "schema_version": "0.2.0",
+      "article_sha256": "8bed2089e9abd69ec18a31afc78291c1e50d7eefcf7afd1bb816dd93ac1dda76",
+      "anchor": {
+        "element_id": "Par7",
+        "xpath": "article/body/sec[@id='Sec2']/p[@id='Par7']",
+        "element_text_sha256": "9333592a609b0fe37c3bcfa4751d0526367abacd60aed989c5b1142bfb4fda12",
+        "character_start": 0,
+        "character_end": 404,
+        "evidence_text_sha256": "78505e50ec21dc91e0b588d57afa056aadd9fec766edb9191ad1283d2e5023ea"
+      },
+      "derived_claim": {
+        "subject": "Li2ZrCl6",
+        "subject_alias": "LZC",
+        "normalized_value": "0.000808",
+        "normalized_unit": "S/cm",
+        "temperature_value": "25",
+        "temperature_unit": "°C",
+        "measurement_method": "electrochemical impedance spectroscopy",
+        "sample_condition": "as-milled"
+      }
+    },
+    {
+      "pmcid": "PMC11696013",
+      "pmcid_version": "PMC11696013.1",
+      "doi": "10.1038/s41467-024-55634-8",
+      "outcome": "documented_abstention",
+      "reason_code": "cross_paragraph_qualifiers_not_supported",
+      "article_sha256": "b04310feb565141e7ca56e6402d9395c567e025cb9529094b0f361d12db6f326",
+      "inspected_anchor": {
+        "element_id": "Par18",
+        "xpath": "article/body/sec[@id='Sec2']/sec[@id='Sec5']/p[@id='Par18']",
+        "element_text_sha256": "9bf189f929be0c0407af5b7fac48235a64fa70e341ada4b0193505b2fe846f27"
+      }
+    },
+    {
+      "pmcid": "PMC9218661",
+      "pmcid_version": "PMC9218661.1",
+      "doi": "10.1002/advs.202200213",
+      "outcome": "record_emitted_unreviewed",
+      "schema_version": "0.3.0",
+      "article_sha256": "b9f939648ccb9acd267645a6bcbcf0a24f33f1b559d0c76acb1807fe968a375f",
+      "anchor": {
+        "element_id": null,
+        "ancestor_element_id": "advs3904-sec-0030",
+        "locator_scope": "native_ancestor_plus_xpath",
+        "xpath": "article/body/sec[@id='advs3904-sec-0030']/p",
+        "element_text_sha256": "73bd7c568be77756026a5cae7eac310c120ad0acf97e3a635a7be2f332277919",
+        "character_start": 95,
+        "character_end": 381,
+        "evidence_text_sha256": "bdc8cc7697fd8985e68de8d1a0c70266c0bc6cc31632c7bff4263fb594b60962"
+      },
+      "derived_claim": {
+        "subject": "composite SSEs",
+        "normalized_value": "0.000031",
+        "normalized_unit": "S/cm",
+        "temperature_value": "30",
+        "temperature_unit": "°C",
+        "measurement_method": "joint analysis of CA, EIS, and DS spectra",
+        "sample_condition": "volume fraction of added TiO2 of 10%"
+      }
+    },
+    {
+      "pmcid": "PMC10844219",
+      "pmcid_version": "PMC10844219.1",
+      "doi": "10.1038/s41467-024-45258-3",
+      "outcome": "record_emitted_unreviewed",
+      "schema_version": "0.2.0",
+      "article_sha256": "e58c478a96bb1d64462b4e9182bc17b8cb54f85a38fb0184fc57b6aff0e8bc4f",
+      "anchor": {
+        "element_id": "Par12",
+        "xpath": "article/body/sec[@id='Sec2']/sec[@id='Sec4']/p[@id='Par12']",
+        "element_text_sha256": "793ccd2990095f9d0000281fe9f9e9aaedd6e98cfdd7fadc67079da29b4cd2c1",
+        "character_start": 27,
+        "character_end": 277,
+        "evidence_text_sha256": "b39b8bfd619f531f89403cdf634370fc0ed60df3c14f78a9878d8418293e9738"
+      },
+      "derived_claim": {
+        "subject": "HE-SE",
+        "normalization_caveat": "full-composition coreference not resolved",
+        "normalized_value": "0.00213",
+        "normalized_unit": "S/cm",
+        "temperature_value": "25",
+        "temperature_unit": "°C",
+        "value_qualifier": "approximately",
+        "measurement_method": "electrochemical impedance spectroscopy",
+        "sample_condition": "as-prepared"
+      }
+    }
+  ]
+}

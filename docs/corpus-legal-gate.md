@@ -84,4 +84,7 @@ checklist. It can compare a user-supplied OAI/JATS file with existing manifest
 identity and license metadata and produce an explicitly unreviewed derived
 record, but that deterministic processing is neither legal approval nor
 scientific review. The command performs no automatic download and does not
-persist the supplied source XML.
+persist the supplied source XML. The five-paper software run publishes only
+source-text-free outcomes and hashes in
+[`benchmark/five-paper-smoke-report.v0.1.json`](../benchmark/five-paper-smoke-report.v0.1.json);
+its four records and one abstention do not change this gate.

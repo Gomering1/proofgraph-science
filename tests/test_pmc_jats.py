@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 import unittest
 
-from proofgraph.jats import iter_body_paragraphs
+from proofgraph.jats import body_paragraph_by_section_position, iter_body_paragraphs
 from proofgraph.pmc import (
     PmcIdentityError,
     PmcParseError,
@@ -73,6 +73,28 @@ class PmcJatsTests(unittest.TestCase):
         self.assertIn("Figure-tail prose remains.", paragraph.text)
         self.assertNotIn("Excluded caption", paragraph.text)
         self.assertNotIn("Excluded table", paragraph.text)
+
+    def test_addresses_an_idless_paragraph_under_a_native_section(self) -> None:
+        paragraph = body_paragraph_by_section_position(
+            parse_fixture().article,
+            section_id="Sec2",
+            position=2,
+        )
+
+        self.assertIsNone(paragraph.element_id)
+        self.assertEqual(paragraph.ancestor_element_id, "Sec2")
+        self.assertEqual(paragraph.xpath, "article/body/sec[@id='Sec2']/p[2]")
+        self.assertEqual(
+            paragraph.text,
+            "This paragraph deliberately has no native id and must be skipped.",
+        )
+
+        with self.assertRaisesRegex(ValueError, "cannot select position 3"):
+            body_paragraph_by_section_position(
+                parse_fixture().article,
+                section_id="Sec2",
+                position=3,
+            )
 
     def test_fails_closed_on_structure_identity_and_rights_mismatches(self) -> None:
         raw = FIXTURE.read_bytes()
