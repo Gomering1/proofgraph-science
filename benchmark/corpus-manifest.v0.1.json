@@ -1,0 +1,274 @@
+{
+  "manifest_version": "0.1.0",
+  "created_on": "2026-09-11",
+  "scope": "Five-paper legal-gate corpus for the first ProofGraph solid-state-electrolyte pilot",
+  "license_policy_url": "https://creativecommons.org/licenses/by/4.0/",
+  "repository_content_policy": "This manifest records links and rights evidence only. It does not include or authorize automatic download of article text, figures, tables, or supplements.",
+  "default_redistribution_policy": "link_and_derived_metadata_only_until_asset_level_review",
+  "legal_gate": {
+    "required_before_ingest": [
+      "Confirm that the DOI, publisher URL, and PMC record still identify the same article.",
+      "Confirm that the article License section still identifies CC BY 4.0 as the governing license.",
+      "Inspect every figure, table, supplement, and other intended asset for a separate credit line or rights notice.",
+      "Record the exact source asset, access date, attribution, and any excluded third-party material.",
+      "Do not ingest an underlying paper cited by an article or dataset until that underlying paper has its own manifest entry and rights review."
+    ],
+    "required_before_public_redistribution": [
+      "Release only content covered by the recorded license or separate written permission.",
+      "Include author, article title, journal, DOI, CC BY 4.0 notice, license URL, and an indication of changes.",
+      "Exclude third-party material whose credit line or rights status does not permit the proposed reuse.",
+      "Prefer source anchors, hashes, annotations, and derived claim records over republishing article full text."
+    ]
+  },
+  "papers": [
+    {
+      "id": "nasicon-design-principles-2023",
+      "title": "Design principles for NASICON super-ionic conductors",
+      "authors": [
+        "Jingyang Wang",
+        "Tanjin He",
+        "Xiaochen Yang",
+        "Zijian Cai",
+        "Yan Wang",
+        "Valentina Lacivita",
+        "Haegyeom Kim",
+        "Bin Ouyang",
+        "Gerbrand Ceder"
+      ],
+      "journal": "Nature Communications",
+      "pmid": "37626068",
+      "pmcid": "PMC10457403",
+      "doi": "10.1038/s41467-023-40669-0",
+      "doi_url": "https://doi.org/10.1038/s41467-023-40669-0",
+      "publisher_url": "https://www.nature.com/articles/s41467-023-40669-0",
+      "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10457403/",
+      "license": {
+        "spdx": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "evidence_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10457403/",
+        "evidence_location": "License section",
+        "evidence_note": "The PMC License section identifies this article as licensed under Creative Commons Attribution 4.0 International.",
+        "checked_on": "2026-09-11"
+      },
+      "access_basis": "Open-access publisher article and PMC copy with an explicit CC BY 4.0 license statement.",
+      "source_assets": [
+        {
+          "kind": "publisher_pdf",
+          "url": "https://www.nature.com/articles/s41467-023-40669-0.pdf",
+          "status": "link_only_not_downloaded"
+        },
+        {
+          "kind": "supplementary_dataset_xlsx",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/instance/10457403/bin/41467_2023_40669_MOESM3_ESM.xlsx",
+          "status": "link_only_not_downloaded"
+        },
+        {
+          "kind": "supplementary_information_pdf",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/instance/10457403/bin/41467_2023_40669_MOESM1_ESM.pdf",
+          "status": "link_only_not_downloaded"
+        }
+      ],
+      "redistribution_policy": "Initial pilot may publish attribution, source links, source hashes, source anchors, and original ProofGraph annotations or derived claim records after review. Do not commit article full text or supplementary files. Inspect asset-level credit lines before quoting or redistributing figures, tables, or supplement content.",
+      "third_party_materials_caveat": "The article license does not automatically cover material identified by a separate credit line. Exclude or separately clear any such material.",
+      "dataset_caveat": {
+        "applies_to": "The supplementary compilation of 475 reported NASICON compositions with experimental conductivity values",
+        "license_scope": "CC BY 4.0 supports reuse of the article authors' original compilation and supplementary content subject to attribution and any asset-specific notices; it does not establish reuse rights for the full text, figures, or tables of the underlying cited papers.",
+        "underlying_sources_policy": "Treat each dataset row as a claim reported by this article unless and until its cited source is independently verified and entered into the manifest. Never fetch or redistribute an underlying cited paper solely because it appears in the compilation.",
+        "scientific_comparability_warning": "The 475 records are not uniform ground truth. Preparation and measurement conditions vary, and fields such as pellet density or interfacial resistance may be missing. Preserve the reported source, measurement temperature, method, and missing-condition flags; do not rank values as directly comparable without domain review.",
+        "public_release_gate": "A row-level release requires documented attribution to this article, preservation of its cited-source field, and a review of the supplementary asset's credit lines. Claims attributed directly to an underlying paper require an independent rights and evidence check for that paper."
+      }
+    },
+    {
+      "id": "humidity-tolerant-li2zrcl6-2021",
+      "title": "A cost-effective and humidity-tolerant chloride solid electrolyte for lithium batteries",
+      "authors": [
+        "Kai Wang",
+        "Qingyong Ren",
+        "Zhenqi Gu",
+        "Chaomin Duan",
+        "Jinzhu Wang",
+        "Feng Zhu",
+        "Yuanyuan Fu",
+        "Jipeng Hao",
+        "Jinfeng Zhu",
+        "Lunhua He",
+        "Chin-Wei Wang",
+        "Yingying Lu",
+        "Jie Ma",
+        "Cheng Ma"
+      ],
+      "journal": "Nature Communications",
+      "pmid": "34285207",
+      "pmcid": "PMC8292426",
+      "doi": "10.1038/s41467-021-24697-2",
+      "doi_url": "https://doi.org/10.1038/s41467-021-24697-2",
+      "publisher_url": "https://www.nature.com/articles/s41467-021-24697-2",
+      "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8292426/",
+      "license": {
+        "spdx": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "evidence_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8292426/",
+        "evidence_location": "License section",
+        "evidence_note": "The PMC License section identifies this article as licensed under Creative Commons Attribution 4.0 International.",
+        "checked_on": "2026-09-11"
+      },
+      "access_basis": "Open-access publisher article and PMC copy with an explicit CC BY 4.0 license statement.",
+      "source_assets": [
+        {
+          "kind": "publisher_pdf",
+          "url": "https://www.nature.com/articles/s41467-021-24697-2.pdf",
+          "status": "link_only_not_downloaded"
+        }
+      ],
+      "redistribution_policy": "Initial pilot may publish attribution, source links, source hashes, source anchors, and original ProofGraph annotations or derived claim records after review. Do not commit article full text. Inspect asset-level credit lines before quoting or redistributing figures, tables, or supplement content.",
+      "third_party_materials_caveat": "The article license does not automatically cover material identified by a separate credit line. Exclude or separately clear any such material."
+    },
+    {
+      "id": "sulfide-surface-engineering-2024",
+      "title": "Surface molecular engineering to enable processing of sulfide solid electrolytes in humid ambient air",
+      "authors": [
+        "Mengchen Liu",
+        "Jessica J. Hong",
+        "Elias Sebti",
+        "Ke Zhou",
+        "Shen Wang",
+        "Shijie Feng",
+        "Tyler Pennebaker",
+        "Zeyu Hui",
+        "Qiushi Miao",
+        "Ershuang Lu",
+        "Nimrod Harpak",
+        "Sicen Yu",
+        "Jianbin Zhou",
+        "Jeong Woo Oh",
+        "Min-Sang Song",
+        "Jian Luo",
+        "Raphaële J. Clément",
+        "Ping Liu"
+      ],
+      "journal": "Nature Communications",
+      "pmid": "39747166",
+      "pmcid": "PMC11696013",
+      "doi": "10.1038/s41467-024-55634-8",
+      "doi_url": "https://doi.org/10.1038/s41467-024-55634-8",
+      "publisher_url": "https://www.nature.com/articles/s41467-024-55634-8",
+      "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11696013/",
+      "license": {
+        "spdx": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "evidence_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11696013/",
+        "evidence_location": "License section",
+        "evidence_note": "The PMC License section identifies this article as licensed under Creative Commons Attribution 4.0 International.",
+        "checked_on": "2026-09-11"
+      },
+      "access_basis": "Open-access publisher article and PMC copy with an explicit CC BY 4.0 license statement.",
+      "source_assets": [
+        {
+          "kind": "publisher_pdf",
+          "url": "https://www.nature.com/articles/s41467-024-55634-8.pdf",
+          "status": "link_only_not_downloaded"
+        },
+        {
+          "kind": "supplementary_dataset_xlsx",
+          "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41467-024-55634-8/MediaObjects/41467_2024_55634_MOESM3_ESM.xlsx",
+          "status": "link_only_not_downloaded"
+        }
+      ],
+      "redistribution_policy": "Initial pilot may publish attribution, source links, source hashes, source anchors, and original ProofGraph annotations or derived claim records after review. Do not commit article full text or supplementary files. Inspect asset-level credit lines before quoting or redistributing figures, tables, or supplement content.",
+      "third_party_materials_caveat": "The article license does not automatically cover material identified by a separate credit line. Exclude or separately clear any such material."
+    },
+    {
+      "id": "composite-wide-frequency-conductivity-2022",
+      "title": "Understanding Enhanced Ionic Conductivity in Composite Solid-State Electrolyte in a Wide Frequency Range of 10−2–10^10 Hz",
+      "authors": [
+        "Kai-Lun Zhang",
+        "Na Li",
+        "Xu Li",
+        "Jun Huang",
+        "Haosen Chen",
+        "Shuqiang Jiao",
+        "Wei-Li Song"
+      ],
+      "journal": "Advanced Science",
+      "pmid": "35460178",
+      "pmcid": "PMC9218661",
+      "doi": "10.1002/advs.202200213",
+      "doi_url": "https://doi.org/10.1002/advs.202200213",
+      "publisher_url": "https://advanced.onlinelibrary.wiley.com/doi/10.1002/advs.202200213",
+      "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9218661/",
+      "license": {
+        "spdx": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "evidence_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9218661/",
+        "evidence_location": "License section",
+        "evidence_note": "The PMC License section identifies this article as CC BY 4.0; the publisher and Crossref license metadata identify the same license.",
+        "checked_on": "2026-09-11"
+      },
+      "access_basis": "Open-access publisher article and PMC copy with CC BY 4.0 identified by the article and license metadata.",
+      "source_assets": [
+        {
+          "kind": "publisher_full_xml",
+          "url": "https://onlinelibrary.wiley.com/doi/full-xml/10.1002/advs.202200213",
+          "status": "link_only_not_downloaded"
+        },
+        {
+          "kind": "publisher_pdf",
+          "url": "https://onlinelibrary.wiley.com/doi/pdf/10.1002/advs.202200213",
+          "status": "link_only_not_downloaded"
+        }
+      ],
+      "redistribution_policy": "Initial pilot may publish attribution, source links, source hashes, source anchors, and original ProofGraph annotations or derived claim records after review. Do not commit article full text. Inspect asset-level credit lines before quoting or redistributing figures, tables, or supplement content.",
+      "third_party_materials_caveat": "The article license does not automatically cover material identified by a separate credit line. Exclude or separately clear any such material."
+    },
+    {
+      "id": "lithium-halide-design-2024",
+      "title": "Designing lithium halide solid electrolytes",
+      "authors": [
+        "Qidi Wang",
+        "Yunan Zhou",
+        "Xuelong Wang",
+        "Hao Guo",
+        "Shuiping Gong",
+        "Zhenpeng Yao",
+        "Fangting Wu",
+        "Jianlin Wang",
+        "Swapna Ganapathy",
+        "Xuedong Bai",
+        "Baohua Li",
+        "Chenglong Zhao",
+        "Jürgen Janek",
+        "Marnix Wagemaker"
+      ],
+      "journal": "Nature Communications",
+      "pmid": "38316799",
+      "pmcid": "PMC10844219",
+      "doi": "10.1038/s41467-024-45258-3",
+      "doi_url": "https://doi.org/10.1038/s41467-024-45258-3",
+      "publisher_url": "https://www.nature.com/articles/s41467-024-45258-3",
+      "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10844219/",
+      "license": {
+        "spdx": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "evidence_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10844219/",
+        "evidence_location": "License section",
+        "evidence_note": "The PMC License section identifies this article as licensed under Creative Commons Attribution 4.0 International.",
+        "checked_on": "2026-09-11"
+      },
+      "access_basis": "Open-access publisher article and PMC copy with an explicit CC BY 4.0 license statement.",
+      "source_assets": [
+        {
+          "kind": "publisher_pdf",
+          "url": "https://www.nature.com/articles/s41467-024-45258-3.pdf",
+          "status": "link_only_not_downloaded"
+        },
+        {
+          "kind": "supplementary_information_pdf",
+          "url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41467-024-45258-3/MediaObjects/41467_2024_45258_MOESM1_ESM.pdf",
+          "status": "link_only_not_downloaded"
+        }
+      ],
+      "redistribution_policy": "Initial pilot may publish attribution, source links, source hashes, source anchors, and original ProofGraph annotations or derived claim records after review. Do not commit article full text or supplementary files. Inspect asset-level credit lines before quoting or redistributing figures, tables, or supplement content.",
+      "third_party_materials_caveat": "The article license does not automatically cover material identified by a separate credit line. Exclude or separately clear any such material."
+    }
+  ]
+}

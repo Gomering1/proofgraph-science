@@ -10,10 +10,13 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "Apache-2.0" }
 authors = [{ name = "Ilia Tiushniakov" }]
-dependencies = []
+dependencies = ["jsonschema>=4.18,<5"]
 
 [project.scripts]
 proofgraph = "proofgraph.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+"proofgraph.schemas" = ["*.json"]

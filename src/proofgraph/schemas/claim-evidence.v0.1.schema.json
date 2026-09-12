@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/Gomering1/proofgraph-science/main/schemas/claim-evidence.v0.1.schema.json",
+  "title": "ProofGraph Science claim evidence record",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "source_artifact",
+    "source_anchor",
+    "claim",
+    "qualifiers",
+    "extraction_run",
+    "validation",
+    "review"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.1.0" },
+    "source_artifact": {
+      "type": "object",
+      "required": ["identifier", "content_sha256", "access_basis"],
+      "properties": {
+        "identifier": { "type": "string" },
+        "title": { "type": "string" },
+        "content_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "access_basis": { "enum": ["open_access", "permissioned", "authored_fixture", "user_supplied"] },
+        "license": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "source_anchor": {
+      "type": "object",
+      "required": ["type", "element_id", "evidence_text"],
+      "properties": {
+        "type": { "const": "html_element" },
+        "element_id": { "type": "string", "minLength": 1 },
+        "evidence_text": { "type": "string", "minLength": 1 },
+        "character_start": { "type": "integer", "minimum": 0 },
+        "character_end": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    },
+    "claim": {
+      "type": "object",
+      "required": ["subject", "property", "reported_value", "reported_unit", "normalized_value", "normalized_unit", "claim_type"],
+      "properties": {
+        "subject": { "type": "string" },
+        "property": { "const": "ionic_conductivity" },
+        "reported_value": { "type": "string" },
+        "reported_unit": { "type": "string" },
+        "normalized_value": { "type": "string" },
+        "normalized_unit": { "const": "S/cm" },
+        "claim_type": { "enum": ["measured", "predicted"] }
+      },
+      "additionalProperties": false
+    },
+    "qualifiers": {
+      "type": "object",
+      "required": ["temperature_value", "temperature_unit", "measurement_method"],
+      "properties": {
+        "temperature_value": { "type": "string" },
+        "temperature_unit": { "const": "°C" },
+        "measurement_method": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "uncertainty": { "type": "object" },
+    "extraction_run": {
+      "type": "object",
+      "required": ["extractor", "proofgraph_version", "python_version", "generated_at"],
+      "properties": {
+        "extractor": { "type": "string" },
+        "proofgraph_version": { "type": "string" },
+        "python_version": { "type": "string" },
+        "generated_at": { "type": "string" },
+        "model": { "type": ["string", "null"] },
+        "prompt_hash": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "validation": { "type": "object" },
+    "review": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": { "enum": ["unreviewed", "human_reviewed", "rejected"] },
+        "reviewer": { "type": ["string", "null"] },
+        "reviewed_at": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "relations": { "type": "array" }
+  },
+  "additionalProperties": false
+}

@@ -14,13 +14,15 @@ Scientific AI systems can turn papers into fluent answers, but a citation alone 
 
 ## Run the demo
 
-Python 3.10 or newer is sufficient. The prototype has no runtime dependencies outside the standard library.
+Python 3.10 or newer is required. Install the package so the Draft 2020-12
+validator and bundled schema are available:
 
 ```bash
 git clone https://github.com/Gomering1/proofgraph-science.git
 cd proofgraph-science
-PYTHONPATH=src python3 -m proofgraph.cli extract examples/fixtures/authored-electrolyte-example.html --out result.json
-PYTHONPATH=src python3 -m proofgraph.cli validate result.json
+python3 -m pip install .
+proofgraph extract examples/fixtures/authored-electrolyte-example.html --out result.json
+proofgraph validate result.json
 ```
 
 The expected output is committed at `examples/expected/authored-electrolyte-example.json`. The generated timestamp and recorded Python version can differ between runs; the content hash changes if the fixture changes.
@@ -52,7 +54,7 @@ The demo produces an explicitly unreviewed record shaped like this:
 ## Run tests
 
 ```bash
-PYTHONPATH=src python3 -m unittest discover -s tests -v
+python3 -m unittest discover -s tests -v
 ```
 
 ## Current implementation
@@ -61,7 +63,9 @@ PYTHONPATH=src python3 -m unittest discover -s tests -v
 - recognizes one narrow ionic-conductivity statement pattern;
 - normalizes `mS cm−1` to `S/cm`;
 - records source SHA-256, extractor version, Python version, timestamp, and review state;
-- checks required source and provenance fields, the supported property/unit values, temperature, and whether the extracted subject and reported value occur in the anchored evidence;
+- executes the published Draft 2020-12 JSON Schema before checking required source and provenance fields, supported property/unit values, temperature, and whether the extracted subject and reported value occur in the anchored evidence;
+- declares a link-only five-paper pilot corpus with canonical identifiers,
+  license evidence, asset-level review gates, and no redistributed article text;
 - fails closed when required evidence is absent.
 
 ## Not implemented yet
@@ -71,7 +75,7 @@ PYTHONPATH=src python3 -m unittest discover -s tests -v
 - domain reviewer workflow and immutable edits;
 - conflict-candidate retrieval;
 - JSON-LD, PROV-O, and RO-Crate mappings;
-- real open-access corpus and benchmark.
+- ingestion, annotation, or evaluation of the five real papers.
 
 The funding applications must not describe any item in this list as already working.
 
@@ -81,7 +85,13 @@ The proposed funded release would add lawful PDF/HTML ingestion, source geometry
 
 ## Data and safety
 
-The repository contains no paywalled papers or private laboratory documents. The current fixture is synthetic and released under CC0-1.0. See [`DATA_POLICY.md`](DATA_POLICY.md) and [`SECURITY.md`](SECURITY.md) before adding any source material.
+The repository contains no article copies, paywalled papers, or private
+laboratory documents. The executable fixture is synthetic and released under
+CC0-1.0. The link-only pilot list and its legal gate are documented in
+[`benchmark/corpus-manifest.v0.1.json`](benchmark/corpus-manifest.v0.1.json) and
+[`docs/corpus-legal-gate.md`](docs/corpus-legal-gate.md). See
+[`DATA_POLICY.md`](DATA_POLICY.md) and [`SECURITY.md`](SECURITY.md) before adding
+any source material.
 
 ## License
 

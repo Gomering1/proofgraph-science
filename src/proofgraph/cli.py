@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from .extract import extract_record
-from .validate import set_validation_result
+from .validate import SchemaRuntimeError, set_validation_result, validate_record
 
 
 def _write_json(path: Path, value: dict[str, Any]) -> None:
@@ -18,7 +18,7 @@ def _extract(args: argparse.Namespace) -> int:
     try:
         record = extract_record(args.input)
         errors = set_validation_result(record)
-    except (OSError, UnicodeError, ValueError) as exc:
+    except (OSError, UnicodeError, ValueError, SchemaRuntimeError) as exc:
         print(f"extract failed: {exc}", file=sys.stderr)
         return 2
     _write_json(Path(args.out), record)
@@ -36,8 +36,18 @@ def _validate(args: argparse.Namespace) -> int:
     except (OSError, UnicodeError, json.JSONDecodeError) as exc:
         print(f"validate failed: {exc}", file=sys.stderr)
         return 2
-    errors = set_validation_result(record)
+    try:
+        if isinstance(record, dict):
+            errors = set_validation_result(record)
+        else:
+            errors = validate_record(record)
+    except SchemaRuntimeError as exc:
+        print(f"validate failed: {exc}", file=sys.stderr)
+        return 2
     if args.write:
+        if not isinstance(record, dict):
+            print("validate failed: --write requires a top-level JSON object", file=sys.stderr)
+            return 2
         _write_json(path, record)
     if errors:
         print("invalid")
@@ -56,14 +66,18 @@ def build_parser() -> argparse.ArgumentParser:
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
 
-    extract = subparsers.add_parser("extract", help="extract one supported record from an HTML fixture")
+    extract = subparsers.add_parser(
+        "extract", help="extract one supported record from an HTML fixture"
+    )
     extract.add_argument("input")
     extract.add_argument("--out", required=True)
     extract.set_defaults(func=_extract)
 
     validate = subparsers.add_parser("validate", help="validate a record")
     validate.add_argument("record")
-    validate.add_argument("--write", action="store_true", help="write validation results into the file")
+    validate.add_argument(
+        "--write", action="store_true", help="write validation results into the file"
+    )
     validate.set_defaults(func=_validate)
     return parser
 
